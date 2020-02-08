@@ -27,20 +27,24 @@ public class MainController {
         //return "Saved";
     }
 
-    @GetMapping(path="/user") // GET /all
+    @GetMapping(path="/user") // GET /user
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
 
     @GetMapping(path="/user/get") // GET user/get?id=1
-//    public @ResponseBody Optional<User> getUserById(@RequestParam Optional<Integer> id ) {
+    //public @ResponseBody Optional<User> getUserById(@RequestParam Optional<Integer> id ) {
     public @ResponseBody Optional<User> getUserById(@RequestParam int id ) {
             return userRepository.findById(id);
     }
+    @GetMapping(path="/user/{id}") // GET user/get?id=1
+    public @ResponseBody Optional<User> getUserByUrlId(@PathVariable int id ) {
+        return userRepository.findById(id);
+    }
 
-    @DeleteMapping(path="/user")
-    public @ResponseBody Iterable<User> getAllUserrs() {
+    @DeleteMapping(path="/user") // DELETE /user
+    public @ResponseBody Iterable<User> deleteUserById() {
         return userRepository.findAll();
     }
 }
