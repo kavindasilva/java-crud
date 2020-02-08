@@ -1,4 +1,4 @@
-package com.example.greet;
+package com.example.accessingdatamysql;
 
 import java.util.concurrent.atomic.AtomicLong;
 

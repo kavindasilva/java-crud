@@ -1,4 +1,4 @@
-package com.example.greet;
+package com.example.accessingdatamysql.greet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

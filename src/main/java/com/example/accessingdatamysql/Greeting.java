@@ -1,4 +1,4 @@
-package com.example.greet;
+package com.example.accessingdatamysql;
 
 public class Greeting {
 
