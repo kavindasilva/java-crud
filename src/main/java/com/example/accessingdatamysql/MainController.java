@@ -14,17 +14,14 @@ public class MainController {
     private UserRepository userRepository;
 
     @PostMapping(path="/user") // POST /add  ;  Map ONLY POST Requests
-    public @ResponseBody String addNewUser (@RequestParam String name
-            , @RequestParam String email) {
+    public @ResponseBody String addNewUser (@RequestBody User newUserData) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-
         User n = new User();
-        n.setName(name);
-        n.setEmail(email);
+        n.setName(newUserData.getName());
+        n.setEmail(newUserData.getEmail());
         userRepository.save(n);
         return n.getId()+" created";
-        //return "Saved";
     }
 
     @GetMapping(path="/user") // GET /user
@@ -43,8 +40,9 @@ public class MainController {
         return userRepository.findById(id);
     }
 
-    @DeleteMapping(path="/user") // DELETE /user
-    public @ResponseBody Iterable<User> deleteUserById() {
-        return userRepository.findAll();
+    @DeleteMapping(path="/user/{id}") // DELETE /user
+    public @ResponseBody boolean deleteUserById(@PathVariable int id) {
+        userRepository.deleteById(id);
+        return true;
     }
 }
