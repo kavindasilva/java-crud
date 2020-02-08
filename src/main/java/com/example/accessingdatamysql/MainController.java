@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Optional;
+
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/") // This means URL's start with /demo (after Application path)
 public class MainController {
@@ -35,8 +37,8 @@ public class MainController {
     }
 
     @GetMapping(path="/get")
-    public @ResponseBody Iterable<User> getUserById() {
+    public @ResponseBody Optional<User> getUserById(@RequestParam int id) {
         // This returns a JSON or XML with the users
-        return userRepository.findAll();
+        return userRepository.findById(id);
     }
 }
