@@ -14,9 +14,9 @@ public class ConsumeRestApplication {
 
     private static final Logger log = LoggerFactory.getLogger(ConsumeRestApplication.class);
 
-    public static void main(String[] args) {
-        SpringApplication.run(ConsumeRestApplication.class, args);
-    }
+//    public static void main(String[] args) {
+//        SpringApplication.run(ConsumeRestApplication.class, args);
+//    }
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
