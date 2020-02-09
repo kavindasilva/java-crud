@@ -1,5 +1,9 @@
 package com.example.javabill;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -9,7 +13,7 @@ public class BillItem {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer bill_item_id;
     private String item_batch;
-    private int bill_id; // mysql datetime
+    private int bill_id; // fk
     private Double qty;
 
 
@@ -27,12 +31,17 @@ public class BillItem {
         this.item_batch = item_batch;
     }
 
-    public int getBill_id() {
-        return bill_id;
-    }
-    public void setBill_id(int bill_id) {
-        this.bill_id = bill_id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "post_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Bill bill;
+//    public int getBill_id() {
+//        return bill_id;
+//    }
+//    public void setBill_id(int bill_id) {
+//        this.bill_id = bill_id;
+//    }
 
     public Double getQty() {
         return qty;
