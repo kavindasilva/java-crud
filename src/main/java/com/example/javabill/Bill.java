@@ -1,11 +1,13 @@
 package com.example.javabill;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity // This tells Hibernate to make a table out of this class
+@Table(name = "bill")
 public class Bill {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -14,7 +16,7 @@ public class Bill {
     private String bill_time; // mysql datetime
     private Double bill_total;
 
-    
+
     public Integer getBill_id() {
         return bill_id;
     }
@@ -44,19 +46,4 @@ public class Bill {
         this.bill_total = bill_total;
     }
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
 }
