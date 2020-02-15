@@ -1,8 +1,13 @@
 package com.example.javabill;
 
+/**
+ * Reference: https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/one-to-many-foreign-key-mapping.html
+ */
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.SQLInsert;
 
 import javax.persistence.*;
 
@@ -15,7 +20,6 @@ public class BillItem {
     private String item_batch;
     private int bill_id; // fk
     private Double qty;
-
 
     public Integer getBill_item_id() {
         return bill_item_id;
@@ -30,18 +34,6 @@ public class BillItem {
     public void setItem_batch(String item_batch) {
         this.item_batch = item_batch;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "post_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Bill bill;
-//    public int getBill_id() {
-//        return bill_id;
-//    }
-//    public void setBill_id(int bill_id) {
-//        this.bill_id = bill_id;
-//    }
 
     public Double getQty() {
         return qty;

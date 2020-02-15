@@ -10,6 +10,6 @@ import java.util.Optional;
 import com.example.javabill.BillItem;
 
 public interface BillItemRepository extends CrudRepository<BillItem, Integer> {
-//    Page<BillItem> findByBill_id(Long postId, Pageable pageable);
+//    Page<BillItem> findByBill_id(Integer bill_id, Pageable pageable);
 //    Optional<BillItem> findByIdAndPostId(Long id, Long postId);
 }
