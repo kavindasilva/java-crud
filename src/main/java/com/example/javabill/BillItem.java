@@ -19,26 +19,13 @@ public class BillItem{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer bill_item_id;
-//    private String item_batch;
+//    private String item_batch; // not used
     private int bill_id; // fk
     private Double qty;
 
     @ManyToOne()
     @JoinColumn(name="item", insertable = false, updatable = false, referencedColumnName = "item_id")
     private Item item;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="item_batch", insertable = false, updatable = false, referencedColumnName = "item_batch")
-//    private Item item_batch;
-
-//    public Item getItemData() {
-//        return itemData;
-//    }
-//    public void setItemData(Item itemData) {
-//        this.itemData = itemData;
-//    }
-
-
 
     public Item getItem() {
         return item;
@@ -53,13 +40,6 @@ public class BillItem{
     public void setBill_item_id(Integer id) {
         this.bill_item_id = id;
     }
-
-//    public Item getItem_batch() {
-//        return item_batch;
-//    }
-//    public void setItem_batch(Item item_batch) {
-//        this.item_batch = item_batch;
-//    }
 
     public Double getQty() {
         return qty;
