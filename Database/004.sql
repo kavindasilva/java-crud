@@ -30,18 +30,6 @@ INSERT INTO `bill_item` (`bill_item_id`, `item_batch`, `bill_id`, `qty`, `item`)
 
 -- --------------------------------------------------------
 
-CREATE TABLE `hibernate_sequence` (
-  `next_val` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(1),
-(1),
-(1);
-
--- --------------------------------------------------------
-
 CREATE TABLE `item` (
   `item_id` int(11) NOT NULL,
   `item_batch` varchar(20) NOT NULL,
@@ -53,8 +41,20 @@ CREATE TABLE `item` (
 
 INSERT INTO `item` (`item_id`, `item_batch`, `item_name`, `buy_price`, `sell_price`) VALUES
 (1, 'B0001', 'test1', '100', '120'),
-(2, 'B0002', 'test2', '460', '500');
-
+(2, 'B0002', 'test2', '460', '500'),
+(3, 'G0001', 'lunch sheet', '40', '100'),
+(4, 'G0002', 'sugar 1kg', '70', '110'),
+(5, 'G1002', 'sugar 1kg', '80', '120'),
+(6, 'M0001', 'Anchor 400g', '260', '480'),
+(7, 'M0002', 'Anchor 1kg', '650', '790'),
+(8, 'M0003', 'Highland 400g', '280', '320'),
+(9, 'V0001', 'Tomatoes 1kg', '80', '120'),
+(10, 'V0002', 'Beetroot 1kg', '45', '60'),
+(11, 'V0003', 'Carrot 1kg', '160', '180'),
+(12, 'V0004', 'Leeks 1kg', '175', '190'),
+(13, 'V0005', 'Beans 1kg', '120', '140'),
+(14, 'V0006', 'Cabbage 1kg', '80', '90'),
+(15, 'V0007', 'Pumpkin 1kg', '150', '180');
 
 ALTER TABLE `bill`
   ADD PRIMARY KEY (`bill_id`);
@@ -74,13 +74,24 @@ ALTER TABLE `bill_item`
   MODIFY `bill_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 ALTER TABLE `bill_item`
   ADD CONSTRAINT `FKcf0kpt07c9onbtvnttajk3skx` FOREIGN KEY (`bill_id`) REFERENCES `bill` (`bill_id`),
   ADD CONSTRAINT `FKr0qmad05u4yya14lp0tfo60i5` FOREIGN KEY (`item`) REFERENCES `item` (`item_id`);
-COMMIT;
 
+
+-- --------------------------------------------------------
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+(1),
+(1),
+(1);
 
 -- --------------------------------------------------------
 
