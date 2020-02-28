@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 @Table(name = "bill")
 public class Bill {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer bill_id;
 
     private int cashier;

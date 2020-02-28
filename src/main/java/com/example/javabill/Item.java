@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "item")
 public class Item {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int item_id;
 
 //    @OneToMany()

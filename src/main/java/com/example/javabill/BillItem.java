@@ -17,7 +17,7 @@ import java.io.Serializable;
 //public class BillItem implements Serializable {
 public class BillItem{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer bill_item_id;
 //    private String item_batch; // not used
     private int bill_id; // fk
