@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller // This means that this class is a Controller
@@ -20,16 +23,34 @@ public class BillController {
     @Autowired // This means to get the bean called userRepository
     private BillItemRepository billItemRepository;
 
-//    @PostMapping(path="/user") // POST /user  ;  Map ONLY POST Requests
-//    public @ResponseBody String addNewUser (@RequestBody User newUserData) {
-//        // @ResponseBody means the returned String is the response, not a view name
-//        // @RequestParam means it is a parameter from the GET or POST request
-//        BillItem n = new BillItem();
-//        n.setName(newUserData.getName());
-//        n.setEmail(newUserData.getEmail());
-//        billRepository.save(n);
-//        return n.getId()+" created";
-//    }
+        /*"bill_id": 1,
+            "cashier": 1,
+            "bill_time": "2020-02-16 14:09:05",
+            "bill_total": 100.0,
+            "items": [
+                {
+                    "bill_item_id": 1,
+                    "qty": 1.0,
+                }
+            ]*/
+    @PostMapping(path="/bill") // POST /user  ;  Map ONLY POST Requests
+    public @ResponseBody String createNewBill (@RequestBody Bill newBill) {
+        Bill b = new Bill();
+        b.setCashier(1); // hardcoded phase 1
+        b.setBill_time( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) );
+        b.setBill_total(100.0);
+//        b.setItems(newBill.getItems());
+        if( !newBill.getItems().isEmpty() ){
+            for( BillItem bItem : newBill.getItems() ){
+                //System.out.println( bItem.getBill_item_id() );
+                bItem.set
+                billItemRepository.save(bItem);
+            }
+            return "1";
+        }
+        billRepository.save(b);
+        return b.getBill_id()+" created";
+    }
 
     @GetMapping(path="/bills") // GET /user
     public @ResponseBody Iterable<Bill> getBills() {
