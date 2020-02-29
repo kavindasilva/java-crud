@@ -35,21 +35,32 @@ public class BillController {
             ]*/
     @PostMapping(path="/bill") // POST /user  ;  Map ONLY POST Requests
     public @ResponseBody String createNewBill (@RequestBody Bill newBill) {
+        String returnData = "";
         Bill b = new Bill();
         b.setCashier(1); // hardcoded phase 1
         b.setBill_time( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) );
         b.setBill_total(100.0);
 //        b.setItems(newBill.getItems());
+        billRepository.save(b);
+        returnData += "bill: "+b.getBill_id()+" created; ";
+//        return b.getBill_id()+" created";
+
         if( !newBill.getItems().isEmpty() ){
             for( BillItem bItem : newBill.getItems() ){
                 //System.out.println( bItem.getBill_item_id() );
-                bItem.set
-                billItemRepository.save(bItem);
+                BillItem bill_item = new BillItem();
+
+                bill_item.setBill_id( b.getBill_id() );
+                bill_item.setQty( bItem.getQty() );
+                bill_item.setItem( bItem.getItem() );
+
+                billItemRepository.save(bill_item);
+//                billItemRepository.save(bItem);
+                returnData += "bill_item: "+ bill_item.getBill_item_id()+" added; ";
             }
-            return "1";
+//            return "1";
         }
-        billRepository.save(b);
-        return b.getBill_id()+" created";
+        return returnData;
     }
 
     @GetMapping(path="/bills") // GET /user

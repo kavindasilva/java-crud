@@ -19,7 +19,7 @@ CREATE TABLE `bill_item` (
   `bill_item_id` int(11) NOT NULL,
   `item_batch` varchar(20) DEFAULT NULL,
   `bill_id` int(11) DEFAULT NULL,
-  `qty` decimal(10,0) NOT NULL DEFAULT 1,
+  `qty` decimal(10,2) NOT NULL DEFAULT 1,
   `item` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
