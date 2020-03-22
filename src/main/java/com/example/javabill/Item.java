@@ -60,5 +60,8 @@ public class Item {
         this.sell_price = sell_price;
     }
 
+    public String toString(){
+        return "item: {id: "+this.item_id+", batch:"+this.item_batch+", name:"+this.item_name+" }";
+    }
 
 }

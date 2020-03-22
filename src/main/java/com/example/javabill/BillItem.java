@@ -23,6 +23,7 @@ public class BillItem{
     private int bill_id; // fk
     private Double qty;
 
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToOne()
     @JoinColumn(name="item", insertable = false, updatable = false, referencedColumnName = "item_id")
     private Item item;
@@ -55,4 +56,12 @@ public class BillItem{
         this.bill_id = bill_id;
     }
 
+    public String toString(){
+        return "{ bill_item_id: "+this.bill_item_id+"," +
+                "bill_id: "+this.bill_id+"," +
+                "quantity: "+this.qty+","+
+                "item: "+this.item+
+//                "item: "+this.item.toString()+
+                " }";
+    }
 }

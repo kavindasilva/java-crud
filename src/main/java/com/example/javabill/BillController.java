@@ -17,9 +17,10 @@ import java.util.Optional;
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/") // This means URL's start with /demo (after Application path)
 public class BillController {
-    @Autowired // This means to get the bean called userRepository
+    @Autowired
     private BillRepository billRepository;
-
+    @Autowired
+    private ItemRepository itemRepository;
     @Autowired // This means to get the bean called userRepository
     private BillItemRepository billItemRepository;
 
@@ -36,27 +37,45 @@ public class BillController {
     @PostMapping(path="/bill") // POST /user  ;  Map ONLY POST Requests
     public @ResponseBody String createNewBill (@RequestBody Bill newBill) {
         String returnData = "";
+        BillItem bill_item = new BillItem();
         Bill b = new Bill();
+
         b.setCashier(1); // hardcoded phase 1
         b.setBill_time( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) );
         b.setBill_total(100.0);
 //        b.setItems(newBill.getItems());
         billRepository.save(b);
         returnData += "bill: "+b.getBill_id()+" created; ";
-//        return b.getBill_id()+" created";
 
         if( !newBill.getItems().isEmpty() ){
             for( BillItem bItem : newBill.getItems() ){
-                //System.out.println( bItem.getBill_item_id() );
-                BillItem bill_item = new BillItem();
+                System.out.println("bill_item1: "+ bItem.toString() );
+//                System.out.println("bill_item2: "+ bItem.getItem().toString() );
+//                item id: { bill_item_id: null,bill_id: 0,quantity: 1.2 }
+
+//                Item item = bItem.getItem();
+//                System.out.println("item 2id: "+ item.getItem_id() );
+
+//                Optional<Item> item_data = itemRepository.findById( bItem.getItem().getItem_id() );
+//                Optional<Item> item_data = itemRepository.findById( item.getItem_id() );
+
+//                continue;
 
                 bill_item.setBill_id( b.getBill_id() );
                 bill_item.setQty( bItem.getQty() );
                 bill_item.setItem( bItem.getItem() );
 
+                Optional<Item> item_data = itemRepository.findById( 2 );
+                if( item_data.isPresent() ){
+//                    returnData += bItem.getItem().getItem_id()+" not found;";
+//                    returnData += item_data.ge()+" not found;";
+//                    continue;
+//                    bill_item.setItem( item_data );
+
+                }
                 billItemRepository.save(bill_item);
 //                billItemRepository.save(bItem);
-                returnData += "bill_item: "+ bill_item.getBill_item_id()+" added; ";
+                returnData += "bill_item: "+ bill_item.getBill_item_id()+" added; "; /* */
             }
 //            return "1";
         }

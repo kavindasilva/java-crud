@@ -4,8 +4,8 @@ package com.example.javabill;
  * Reference: https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/one-to-many-foreign-key-mapping.html
  */
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
+//import jdk.nashorn.internal.objects.annotations.Getter;
+//import jdk.nashorn.internal.objects.annotations.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
