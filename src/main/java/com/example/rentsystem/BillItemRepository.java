@@ -1,13 +1,9 @@
-package com.example.javabill;
+package com.example.rentsystem;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-import com.example.javabill.BillItem;
+
 
 public interface BillItemRepository extends CrudRepository<BillItem, Integer> {
 //    Page<BillItem> findByBill_id(Integer bill_id, Pageable pageable);

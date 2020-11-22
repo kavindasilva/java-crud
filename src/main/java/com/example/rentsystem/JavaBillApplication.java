@@ -1,6 +1,5 @@
-package com.example.javabill;
+package com.example.rentsystem;
 
-import com.example.accessingdatamysql.GreetApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

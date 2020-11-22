@@ -1,4 +1,4 @@
-package com.example.javabill;
+package com.example.rentsystem;
 
 /**
  * Reference: https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/one-to-many-foreign-key-mapping.html

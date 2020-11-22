@@ -1,4 +1,4 @@
-package com.example.javabill;
+package com.example.rentsystem;
 
 /**
  * Reference: https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/one-to-many-foreign-key-mapping.html
@@ -7,13 +7,10 @@ package com.example.javabill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.SQLInsert;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Optional;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "bill_item")

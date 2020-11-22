@@ -1,4 +1,4 @@
-package com.example.javabill;
+package com.example.rentsystem;
 
 import org.springframework.data.repository.CrudRepository;
 
