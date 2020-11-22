@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Controller // This means that this class is a Controller
@@ -42,44 +43,48 @@ public class BillController {
 
         b.setCashier(1); // hardcoded phase 1
         b.setBill_time( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) );
-        b.setBill_total(100.0);
+        b.setBill_total(newBill.getBill_total());
 //        b.setItems(newBill.getItems());
         billRepository.save(b);
         returnData += "bill: "+b.getBill_id()+" created; ";
 
-        if( !newBill.getItems().isEmpty() ){
-            for( BillItem bItem : newBill.getItems() ){
-                System.out.println("bill_item1: "+ bItem.toString() );
-//                System.out.println("bill_item2: "+ bItem.getItem().toString() );
-//                item id: { bill_item_id: null,bill_id: 0,quantity: 1.2 }
+        Iterator bill_item_list=newBill.getItems().iterator();
+        while( bill_item_list.hasNext() ){
+//            BillItem bill_item2 = new BillItem();
 
-//                Item item = bItem.getItem();
-//                System.out.println("item 2id: "+ item.getItem_id() );
+//            bill_item2.setBill_id( b.getBill_id() );
+//            bill_item2.setQty( bill_item_list.next(). );
+//            bill_item2.setItem( bItem.getItem() );
 
-//                Optional<Item> item_data = itemRepository.findById( bItem.getItem().getItem_id() );
-//                Optional<Item> item_data = itemRepository.findById( item.getItem_id() );
-
-//                continue;
-
-                bill_item.setBill_id( b.getBill_id() );
-                bill_item.setQty( bItem.getQty() );
-                bill_item.setItem( bItem.getItem() );
-
-                Optional<Item> item_data = itemRepository.findById( 2 );
-                if( item_data.isPresent() ){
-//                    returnData += bItem.getItem().getItem_id()+" not found;";
-//                    returnData += item_data.ge()+" not found;";
-//                    continue;
-//                    bill_item.setItem( item_data );
-
-                }
-                billItemRepository.save(bill_item);
-//                billItemRepository.save(bItem);
-                returnData += "bill_item: "+ bill_item.getBill_item_id()+" added; "; /* */
-            }
-//            return "1";
+//            bill_item.setBill_id( b.getBill_id() );
+//            bill_item.setQty( bItem.getQty() );
+//            bill_item.setItem( bItem.getItem() );
         }
         return returnData;
+
+//        if( false && !newBill.getItems().isEmpty() ){
+//            for( BillItem bItem : newBill.getItems() ){
+//                bill_item.setBill_id( b.getBill_id() );
+//                bill_item.setQty( bItem.getQty() );
+//                bill_item.setItem( bItem.getItem() );
+////                bill_item.setItem( itemRepository.findById(1) );
+////                bill_item.setItem( 1 );
+//
+//                Optional<Item> item_data = itemRepository.findById( 2 );
+//                if( item_data.isPresent() ){
+////                    returnData += bItem.getItem().getItem_id()+" not found;";
+////                    returnData += item_data.ge()+" not found;";
+////                    continue;
+////                    bill_item.setItem( item_data );
+//
+//                }
+//                billItemRepository.save(bill_item);
+////                billItemRepository.save(bItem);
+//                returnData += "bill_item: "+ bill_item.getBill_item_id()+" added; "; /* */
+//            }
+////            return "1";
+//        }
+//        return returnData;
     }
 
     @GetMapping(path="/bills") // GET /user

@@ -5,12 +5,12 @@ package com.example.javabill;
  */
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "item")
-public class Item {
+public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int item_id;
@@ -24,6 +24,27 @@ public class Item {
     private String item_name;
     private double buy_price;
     private double sell_price;
+
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private Set<BillItem> books = new HashSet<>();
+//    @OneToMany(cascade= CascadeType.ALL, mappedBy = "item")
+//    private Collection<BillItem> vendorIDs;
+//    public Collection<BillItem> getVendors() {
+//        if (vendorIDs == null) {
+//            vendorIDs = new ArrayList<>();
+//        }
+//        return vendorIDs;
+//    }
+
+
+//    @OneToMany(cascade = {CascadeType.ALL})
+//    private List<BillItem> bill_item;
+//    public List<BillItem> getBill_item() {
+//        return bill_item;
+//    }
+//    public void setBill_item(List<BillItem> bill_item) {
+//        this.bill_item = bill_item;
+//    }
 
     public int getItem_id() {
         return item_id;
