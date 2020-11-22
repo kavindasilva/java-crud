@@ -10,7 +10,7 @@ public class Vehicle {
     private Integer id;
 
     private String reg_no;
-    private int owner_id; // @TODO: make a fk to owner table. until that default 1
+    private int owner_id; // @TODO: make a fk to owner table. until that default 1 (user_id 10)
     private String license_expiry_date;
     private String color;
     private String make;

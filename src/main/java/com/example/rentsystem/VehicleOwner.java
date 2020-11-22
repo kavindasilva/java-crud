@@ -1,6 +1,7 @@
 package com.example.rentsystem;
 
 import javax.persistence.*;
+import java.lang.reflect.Type;
 
 @Entity
 @Table(name = "vehicle_owner")
@@ -9,8 +10,10 @@ public class VehicleOwner {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-//    @JoinColumn()
-    private int user_id;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private  User user_id;
+//    private int user_id;
     private String email;
     private String location;
     private String joined_date;
@@ -23,10 +26,17 @@ public class VehicleOwner {
         this.id = id;
     }
 
-    public int getUser_id() {
+//    public int getUser_id() {
+//        return user_id;
+//    }
+//    public void setUser_id(int user_id) {
+//        this.user_id = user_id;
+//    }
+
+    public User getUser_id() {
         return user_id;
     }
-    public void setUser_id(int user_id) {
+    public void setUser_id(User user_id) {
         this.user_id = user_id;
     }
 
