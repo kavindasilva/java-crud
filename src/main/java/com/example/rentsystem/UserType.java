@@ -1,10 +1,11 @@
 package com.example.rentsystem;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_type")
-public class UserType {
+public class UserType implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
