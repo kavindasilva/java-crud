@@ -14,7 +14,7 @@ public class VehicleOwner {
     private String email;
     private String location;
     private String joined_date;
-    
+
 
     public Integer getId() {
         return id;
