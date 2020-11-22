@@ -1,7 +1,5 @@
-package com.example.javabill;
+package com.example.rentsystem;
 
-import com.example.javabill.Bill;
-import com.example.javabill.BillItem;
 //import com.example.javabill.It;
 //import com.example.javabill.BillItemRepository;
 //import com.example.javabill.BillRepository;
@@ -9,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+        import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Optional;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/") // This means URL's start with /demo (after Application path)
