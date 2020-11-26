@@ -32,13 +32,35 @@ public class VehicleController {
     public @ResponseBody Optional<Vehicle> getVehicleById(@PathVariable int id ) {
         return vehicleRepository.findById(id);
     }
-
-    @GetMapping(path="/car") // GET /users
-    public @ResponseBody Iterable<Car> getAllCars() {
-        return carRepository.findAll();
+    @GetMapping(path="/car1") //
+    public @ResponseBody String getVehicleById() {
+        return "vehicleRepository.findById(id)";
     }
 
-    @GetMapping(path="/vehicle/{id}") // GET user/:id
+    @GetMapping(path="/car2") //
+    public @ResponseBody
+    VehicleResponse getVehicleById2() {
+//        Object o1 = (Object) vehicleRepository.findById(1);
+//        return "vehicleRepository.findById(1)";
+        int forPurp = 2;
+        return new VehicleResponse( vehicleRepository.findById(1), forPurp );
+//        o1
+        // use object .toString()
+        // add json header to response
+    }
+
+    @GetMapping(path="/cars") // GET /users
+    public @ResponseBody Iterable<Car> getAllCars() {
+//        return carRepository.findAll();
+        Iterable<Car> allCars = carRepository.findAll();
+//        allCars.forEach( car ->  );
+        for (Car c: allCars) {
+            c.setId(20);
+        }
+        return  allCars;
+    }
+
+    @GetMapping(path="/car/{id}") // GET user/:id
     public @ResponseBody Optional<Car> getCarById(@PathVariable int id ) {
         return carRepository.findById(id);
     }
