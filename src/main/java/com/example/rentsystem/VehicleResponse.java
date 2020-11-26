@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.Optional;
 
 public class VehicleResponse {
+    protected final int VEHICLE_FOR_ADMIN = 1;
+    protected final int VEHICLE_FOR_PUBLIC = 2;
+
     public Integer id = 0;
     public String reg_no = "WPGA-0099";
     public String license_expiry_date = "2020-12-31";
@@ -17,17 +20,24 @@ public class VehicleResponse {
     private int owner_id = 1;
     private int subEntity = 1; // Car, lorry
     public String customAttr1 = "";
+    public int purposeParam = 0;
 
 
-    public VehicleResponse(Optional<Vehicle> vehicle, int purp) {
-        this.id = vehicle.get().getId();
-        this.reg_no = vehicle.get().getReg_no();
-        this.license_expiry_date = vehicle.get().getLicense_expiry_date();
-        this.color = vehicle.get().getColor();
-        this.make = vehicle.get().getMake();
-        this.model = vehicle.get().getModel();
+    public VehicleResponse(Optional<Vehicle> vehicle, int purpose) {
+        //@TODO: handle null vehicle
+
+        Vehicle thisVehicle = vehicle.get();
+        this.id = thisVehicle.getId();
+        this.license_expiry_date = thisVehicle.getLicense_expiry_date();
+        this.color = thisVehicle.getColor();
+        this.make = thisVehicle.getMake();
+        this.model = thisVehicle.getModel();
 
 //        this.
-        this.customAttr1 = "KK";
+        if(purpose == this.VEHICLE_FOR_PUBLIC) {
+            this.customAttr1 = "PUBLIC-vehicle";
+            this.reg_no = "hidden";
+        }
+        this.purposeParam = purpose;
     }
 }

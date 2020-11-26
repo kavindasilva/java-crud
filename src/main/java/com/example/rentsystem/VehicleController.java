@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.websocket.server.PathParam;
 import java.util.Optional;
 
 @Controller // This means that this class is a Controller
@@ -37,13 +39,13 @@ public class VehicleController {
         return "vehicleRepository.findById(id)";
     }
 
-    @GetMapping(path="/car2") //
+    @GetMapping(path="/car2/{id}") //
     public @ResponseBody
-    VehicleResponse getVehicleById2() {
+    VehicleResponse getVehicleById2(@PathVariable int id, @RequestParam("for") Optional<Integer> purpose) {
 //        Object o1 = (Object) vehicleRepository.findById(1);
 //        return "vehicleRepository.findById(1)";
-        int forPurp = 2;
-        return new VehicleResponse( vehicleRepository.findById(1), forPurp );
+//        int forPurp = 2;
+        return new VehicleResponse( vehicleRepository.findById(id), purpose.orElse(1) );
 //        o1
         // use object .toString()
         // add json header to response
