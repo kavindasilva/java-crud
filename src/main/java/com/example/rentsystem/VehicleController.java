@@ -42,13 +42,7 @@ public class VehicleController {
     @GetMapping(path="/car2/{id}") //
     public @ResponseBody
     VehicleResponse getVehicleById2(@PathVariable int id, @RequestParam("for") Optional<Integer> purpose) {
-//        Object o1 = (Object) vehicleRepository.findById(1);
-//        return "vehicleRepository.findById(1)";
-//        int forPurp = 2;
         return new VehicleResponse( vehicleRepository.findById(id), purpose.orElse(1) );
-//        o1
-        // use object .toString()
-        // add json header to response
     }
 
     @GetMapping(path="/cars") // GET /users

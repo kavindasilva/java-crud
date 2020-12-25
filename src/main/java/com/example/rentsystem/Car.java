@@ -11,7 +11,8 @@ public class Car {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id", nullable = false)
-    private Vehicle vehicle_id;
+//    @Column(name = "vehicle_id")
+    private Vehicle vehicleId;
 
     private String wheel4wd;
     private String options;
