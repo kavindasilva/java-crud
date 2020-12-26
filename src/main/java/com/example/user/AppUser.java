@@ -20,9 +20,9 @@ public class AppUser {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
-    private String email;
-    private String password;
+    private String name = "defaultUsername";
+    private String email = "default@user.name";
+    private String password = "pass";
     private String remember_token;
     private String created_at;
     private String updated_at;
@@ -53,7 +53,7 @@ public class AppUser {
     }
 
     public String getPassword() {
-        return "<<password-hash-protected>>";
+        return this.password; //"<<password-hash-protected>>";
     }
     public void setPassword(String password) {
         this.password = password;
