@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 @Controller // This means that this class is a Controller
-public class UserController {
+public class UsersController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -21,18 +21,19 @@ public class UserController {
 //        return "";
 //    }
 
-    @GetMapping(path="/users") // GET /users
+    @GetMapping(path="/ousers") // GET /users
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
+//        "sdds".comp
         return userRepository.findAll();
     }
 
-    @GetMapping(path="/user/{id}") // GET user/:id
+    @GetMapping(path="/ouser/{id}") // GET user/:id
     public @ResponseBody Optional<User> getItemByUrlId(@PathVariable int id ) {
         return userRepository.findById(id);
     }
 
-    @GetMapping(path="/owners") // GET /users
+    @GetMapping(path="/oowners") // GET /users
     public @ResponseBody Iterable<VehicleOwner> getAllVehicleOwners() {
         return ownerRepository.findAll();
     }
