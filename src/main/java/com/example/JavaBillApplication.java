@@ -1,4 +1,4 @@
-package com.example.rentsystem;
+package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +15,5 @@ public class JavaBillApplication {
 
     public static void main(String args[]){
         SpringApplication.run(JavaBillApplication.class, args);
-//        SpringApplication.run(GreetApplication.class, args);
     }
 }

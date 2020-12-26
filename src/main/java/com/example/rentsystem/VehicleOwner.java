@@ -11,8 +11,8 @@ public class VehicleOwner {
     private Integer id;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    private  User user_id;
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
+    private  User userId;
 //    private int user_id;
     private String email;
     private String location;
@@ -34,10 +34,10 @@ public class VehicleOwner {
 //    }
 
     public User getUser_id() {
-        return user_id;
+        return userId;
     }
     public void setUser_id(User user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public String getEmail() {

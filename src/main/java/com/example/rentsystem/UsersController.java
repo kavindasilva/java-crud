@@ -12,7 +12,7 @@ import java.util.Optional;
 @Controller // This means that this class is a Controller
 public class UsersController {
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository userRepository;
     @Autowired
     private VehicleOwnerRepository ownerRepository;
 

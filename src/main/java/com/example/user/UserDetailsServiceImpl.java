@@ -10,9 +10,9 @@ import static java.util.Collections.emptyList;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private UserRepository applicationUserRepository;
+    private AppUserRepository applicationUserRepository;
 
-    public UserDetailsServiceImpl(UserRepository applicationUserRepository) {
+    public UserDetailsServiceImpl(AppUserRepository applicationUserRepository) {
         this.applicationUserRepository = applicationUserRepository;
     }
 
