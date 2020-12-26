@@ -23,13 +23,13 @@ public class AppUser {
     private String name = "defaultUsername";
     private String email = "default@user.name";
     private String password = "pass";
-    private String remember_token;
-    private String created_at;
-    private String updated_at;
+    private String remember_token = null;
+    private String created_at = null;
+    private String updated_at = null;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_type", nullable = true)
-//    private UserType user_type;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_type", nullable = true)
+    private UserType user_type;
 
     public Integer getId() {
         return id;
@@ -80,12 +80,12 @@ public class AppUser {
         this.updated_at = updated_at;
     }
 
-//    public UserType getUser_type() {
-//        return user_type;
-//    }
-//    public void setUser_type(UserType user_type) {
-//        this.user_type = user_type;
-//    }
+    public UserType getUser_type() {
+        return user_type;
+    }
+    public void setUser_type(UserType user_type) {
+        this.user_type = user_type;
+    }
 
     public String toString(){
         return " {}";

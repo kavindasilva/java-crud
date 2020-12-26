@@ -36,6 +36,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             AppUser creds = new ObjectMapper()
                     .readValue(req.getInputStream(), AppUser.class);
+            System.out.println("attemptAuthentication...");
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -55,7 +56,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication auth) throws IOException, ServletException {
 
         String token = JWT.create()
-                .withSubject(((AppUser) auth.getPrincipal()).getName())
+                .withSubject(auth.getName())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);

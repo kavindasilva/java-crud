@@ -8,20 +8,30 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+//    @Autowired
+    private AppUserRepository userRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserRepository applicationUserRepository,
+    public UserController(AppUserRepository applicationUserRepository,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = applicationUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+//    @PostMapping("/sign-up")
+//    public AppUser signUp(@RequestBody AppUser appUser) {
+//        System.out.println("sign-up called...");
+////        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+//        appUser.setPassword(appUser.getPassword());
+//        userRepository.save(appUser);
+//        return appUser;
+//    }
     @PostMapping("/sign-up")
     public AppUser signUp(@RequestBody AppUser appUser) {
+        System.out.println("sign-up called...");
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+//        appUser.setPassword(appUser.getPassword());
         userRepository.save(appUser);
         return appUser;
     }
