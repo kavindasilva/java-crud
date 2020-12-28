@@ -2,6 +2,9 @@ package com.example.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.user.UserType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -49,15 +52,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+            DecodedJWT jwtInfo = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                     .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
+                    .verify(token.replace(TOKEN_PREFIX, ""));
+
+            String user = jwtInfo.getSubject();
+            int userTypeId = jwtInfo.getClaim("UserType").asInt();
 
             if (user != null) {
                 List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority("ROLE_ADMINs"));
-//                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                authorities.add(new SimpleGrantedAuthority( UserType.USER_ROLES.get( userTypeId )) );
                 return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }
             return null;

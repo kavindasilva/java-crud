@@ -7,10 +7,9 @@ package com.example.rentsystem;
 //import jdk.nashorn.internal.objects.annotations.Getter;
 //import jdk.nashorn.internal.objects.annotations.Setter;
 
+import com.example.user.UserType;
+
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
