@@ -1,6 +1,8 @@
 package com.example.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
@@ -39,6 +41,14 @@ public class UserController {
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<AppUser> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @Secured("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/allu", method = RequestMethod.GET)
+//    @GetMapping(path="/allu")
+    public @ResponseBody Iterable<AppUser> getAllUsers2() {
         return userRepository.findAll();
     }
 
