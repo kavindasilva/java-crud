@@ -38,8 +38,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
 //    @Secured("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/allu", method = RequestMethod.GET)
-//    @GetMapping(path="/allu")
+    @GetMapping(path="/allu")
     public @ResponseBody Iterable<AppUser> getAllUsers2() {
         return userRepository.findAll();
     }
