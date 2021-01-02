@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import static com.example.security.SecurityConstants.EXPIRATION_TIME;
-import static com.example.security.SecurityConstants.HEADER_STRING;
-import static com.example.security.SecurityConstants.SECRET;
-import static com.example.security.SecurityConstants.TOKEN_PREFIX;
+import static com.example.security.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
@@ -70,9 +67,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = JWT.create()
                 .withSubject(auth.getName())
-                .withClaim("AppUrl", "https://github.com/kavindasilva/java-crud")
-                .withClaim("email", jwtUser.getEmail() )
-                .withClaim("UserType", jwtUser.getUser_type().getId() )
+                .withClaim(JWT_ATTR_REPO_URL, "https://github.com/kavindasilva/java-crud")
+                .withClaim(JWT_ATTR_EMAIL, jwtUser.getEmail() )
+                .withClaim(JWT_ATTR_USERTYPE, jwtUser.getUser_type().getId() )
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
