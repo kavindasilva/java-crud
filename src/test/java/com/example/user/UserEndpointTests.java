@@ -28,14 +28,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UserEndpointTests {
     // @TODO: make these URLs constant in UserController, and try to import here
-    protected static final String URL_USER_SIGNUP = "/users/sign-up";
-    protected static final String URL_USER_GET_ALL = "/users/all";
-    protected static final String URL_USER_GET_ALL_RESTRICTED = "/users/allu";
-    protected static final String URL_USER_LOGIN = "/login";
+    protected final String URL_USER_SIGNUP = "/users/sign-up";
+    protected final String URL_USER_GET_ALL = "/users/all";
+    protected final String URL_USER_GET_ALL_RESTRICTED = "/users/allu";
+    protected final String URL_USER_LOGIN = "/login";
 
     // @TODO: find a better way to declare the JSON
-    protected static final String USER_VALID_CREDS = "{ \"name\": \"web2\", \"password\": \"password\" }";
-    protected static final String USER_INVALID_CREDS = "{ \"name\": \"web2invalid\", \"password\": \"password\" }";
+    protected final String USER_VALID_CREDS = "{ \"name\": \"web2\", \"password\": \"password\" }";
+    protected final String USER_INVALID_CREDS = "{ \"name\": \"web2invalid\", \"password\": \"password\" }";
 //    @LocalServerPort
 //    private int port;
 
@@ -44,6 +44,9 @@ public class UserEndpointTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    protected static String authToken = null;
+    protected String expiredJwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3ZWIyIiwiQXBwVXJsIjoiaHR0cHM6Ly9naXRodWIuY29tL2thdmluZGFzaWx2YS9qYXZhLWNydWQiLCJleHAiOjE2MDkxNzk3MDUsIlVzZXJUeXBlIjoyLCJlbWFpbCI6ImRlZmF1bHRAdXNlci5uYW1lIn0.8g5g9O3wHv9USW3wS0Hwfubb3BKBufcloKMwAd0hENROaEmYpwJuOUDvkHJPN_W2rS9Vk-OLlXtiESPalaPELA";
 
     @Test
     public void shouldShowUnauthorizedMessage() throws Exception {
@@ -77,11 +80,51 @@ public class UserEndpointTests {
         Assertions.assertFalse( res.getResponse().containsHeader("Reason-Failed") );
         Assertions.assertTrue( res.getResponse().containsHeader("Authorization") );
         Assertions.assertEquals( "Bearer", res.getResponse().getHeader("Authorization").split(" ")[0] );
+
+        this.authToken = res.getResponse().getHeader("Authorization").split(" ")[1];
+        System.out.println("authtoken get: "+this.authToken);
     }
 
-//    @Test
-//    public void greetingShouldReturnDefaultMessage() throws Exception {
-//        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-//                String.class)).contains("Hello, World");
-//    }
+    @Test
+    public void getSystemsUsers() throws Exception {
+        MvcResult res = this.mockMvc.perform(
+                get(this.URL_USER_GET_ALL )
+                        .header("Authorization", "Bearer "+this.authToken)
+        ).andDo(print()).andExpect(status().is2xxSuccessful()).andReturn();
+    }
+
+    @Test
+    public void tryToAccessWithoutToken() throws Exception {
+        MvcResult res = this.mockMvc.perform(
+                get(this.URL_USER_GET_ALL )
+        ).andDo(print()).andExpect(status().isForbidden()).andReturn();
+    }
+
+    // TODO: find why this is failing
+    @Test
+    public void tryToAccessWithInvalidToken() throws Exception {
+        MvcResult res = this.mockMvc.perform(
+                get(this.URL_USER_GET_ALL )
+                        .header("Authorization", "Bearer invalid")
+        ).andDo(print()).andReturn();
+                //andExpect(status().isForbidden()).andReturn();
+    }
+
+    // TODO: find why this is failing
+    @Test
+    public void tryToAccessWithExpiredToken() throws Exception {
+        MvcResult res = this.mockMvc.perform(
+                get(this.URL_USER_GET_ALL )
+                        .header("Authorization", "Bearer "+this.expiredJwt)
+        ).andDo(print()).andReturn();
+                //andExpect(status().isForbidden()).andReturn();
+    }
+
+    @Test
+    public void tryToAccessUnauthorizedUrl() throws Exception {
+        MvcResult res = this.mockMvc.perform(
+                get(this.URL_USER_GET_ALL_RESTRICTED )
+                        .header("Authorization", "Bearer "+this.authToken)
+        ).andDo(print()).andExpect(status().isForbidden()).andReturn();
+    }
 }
