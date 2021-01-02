@@ -1,8 +1,9 @@
-package com.example.rentsystem;
+package com.example.vehicle;
 
+import com.example.vehicle.Vehicle;
+import com.example.vehicle.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.*;
 import java.util.Optional;
 
 public class VehicleResponse {

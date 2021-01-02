@@ -1,4 +1,4 @@
-package com.example.rentsystem;
+package com.example.vehicle;
 
 import javax.persistence.*;
 

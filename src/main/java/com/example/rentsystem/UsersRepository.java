@@ -7,6 +7,3 @@ public interface UsersRepository extends CrudRepository<User, Integer> {
 //    User findByUsername(String username);
 }
 
-interface VehicleOwnerRepository extends CrudRepository<VehicleOwner, Integer> {
-}
-

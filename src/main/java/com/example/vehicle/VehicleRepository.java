@@ -1,8 +1,6 @@
-package com.example.rentsystem;
+package com.example.vehicle;
 
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.Optional;
 
 public interface VehicleRepository extends CrudRepository<Vehicle, Integer> {
 }
