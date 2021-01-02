@@ -1,6 +1,5 @@
 package com.example.security;
 
-import com.example.user.AppUserRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
+
 
 import static com.example.security.SecurityConstants.SIGN_UP_URL;
 
@@ -43,8 +43,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new JWTAuthenticationFilter(authenticationManager(), getApplicationContext()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTAuthorizationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                // .exceptionHandling()
+                //    .authencationEntryPoint(unauthorizedHandler)  // handles bad credentials
+                //    .accessDeniedHandler(accessDeniedHandler);    // You're using the autowired members above.
         ;
-
         // http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -52,15 +54,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-
-//    private void loginFailureHandler(
-//            HttpServletRequest request,
-//            HttpServletResponse response,
-//            AuthenticationException e) throws IOException {
-//
-//        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-//        objectMapper.writeValue(response.getWriter(), "Nopity nop!");
-//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
