@@ -22,13 +22,13 @@ public class VehicleController {
 
 
     @GetMapping(path="")
-    public @ResponseBody Iterable<Vehicle> getAllVehicles() {
-        // This returns a JSON or XML with the users
-        return vehicleRepository.findAll();
+    public @ResponseBody Iterable<Object> getAllVehicles() {
+//        return vehicleRepository.findAll();
+        return vehicleRepository.findAllVechicleBasicData();
     }
 
     @PostMapping(path = "/lorry")
-    public @ResponseBody Vehicle addnewLorry(@RequestBody Lorry newlorry){
+    public @ResponseBody Vehicle addNewLorry(@RequestBody Lorry newlorry){
         return vehicleService.addLorry(newlorry);
     }
 
