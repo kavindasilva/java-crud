@@ -22,9 +22,9 @@ public class VehicleController {
 
 
     @GetMapping(path="")
-    public @ResponseBody Iterable<Object> getAllVehicles() {
+    public @ResponseBody Iterable<VechicleBasicData> getAllVehicles() {
 //        return vehicleRepository.findAll();
-        return vehicleRepository.findAllVechicleBasicData();
+        return vehicleRepository.findAllVehicleBasicData();
     }
 
     @PostMapping(path = "/lorry")
