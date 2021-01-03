@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
     // reference: https://stackoverflow.com/a/53817222
-    @Query(value = "SELECT id, reg_no, color, make, model, transmission, available FROM Vehicle", nativeQuery = true)
-    List<VechicleBasicData> findAllVehicleBasicData();
+    @Query(value = "SELECT id, reg_no, color, make, model, transmission, available, license_expiry_date FROM Vehicle", nativeQuery = true)
+    List<VehicleBasicData> findAllVehicleBasicData();
 }
 
-interface VechicleBasicData {
+interface VehicleBasicData {
     Integer getId();
     String getReg_no();
     String getLicense_expiry_date();

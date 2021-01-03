@@ -29,4 +29,8 @@ public class VehicleService implements CarService {
         vehicleRepo.save(newLorry);
         return newLorry;
     }
+
+    public Iterable<VehicleBasicData> findVehiclesBasicData(){
+        return vehicleRepo.findAllVehicleBasicData();
+    }
 }
