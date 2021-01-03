@@ -9,6 +9,7 @@ public class Lorry extends Vehicle{
     private Integer id;
 
     @Lob
+    // @TODO: make this a JSON
     private String options;
 
     private double lengthFt;

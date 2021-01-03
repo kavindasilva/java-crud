@@ -3,14 +3,12 @@ package com.example.vehicle;
 import com.example.user.VehicleOwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller // This means that this class is a Controller
+@RestController
+@RequestMapping("/vehicle")
 public class VehicleController {
     @Autowired
     private VehicleRepository vehicleRepository;
@@ -19,18 +17,22 @@ public class VehicleController {
     @Autowired
     private VehicleOwnerRepository ownerRepository;
 
-//    @PostMapping(path="/bill") // POST /user  ;  Map ONLY POST Requests
-//    public @ResponseBody String createNewBill (@RequestBody Bill newBill) {
-//        return "";
-//    }
+    @Autowired
+    private VehicleService vehicleService;
 
-    @GetMapping(path="/vehicles") // GET /users
+
+    @GetMapping(path="")
     public @ResponseBody Iterable<Vehicle> getAllVehicles() {
         // This returns a JSON or XML with the users
         return vehicleRepository.findAll();
     }
 
-    @GetMapping(path="/vehicle/{id}") // GET user/:id
+    @PostMapping(path = "/lorry")
+    public @ResponseBody Vehicle addnewLorry(@RequestBody Lorry newlorry){
+        return vehicleService.addLorry(newlorry);
+    }
+
+    @GetMapping(path="/{id}") // GET vechicle/:id
     public @ResponseBody Optional<Vehicle> getVehicleById(@PathVariable int id ) {
         return vehicleRepository.findById(id);
     }

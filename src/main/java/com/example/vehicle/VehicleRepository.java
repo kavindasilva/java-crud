@@ -9,6 +9,9 @@ interface CarRepository extends CrudRepository<Car, Integer> {
 //    Optional<Car> findByVehicleId(int vehicle_id);
 }
 
+interface LorryRepository extends CrudRepository<Lorry, Integer> {
+}
+
 //interface VehicleOwnerRepository extends CrudRepository<VehicleOwner, Integer> {
 //}
 
