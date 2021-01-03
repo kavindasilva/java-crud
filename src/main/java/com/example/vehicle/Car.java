@@ -6,17 +6,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "car")
-public class Car {
+public class Car extends Vehicle{
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id; // this name should be same as Vehicle class's id field
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicle_id", nullable = false)
-//    @Column(name = "vehicle_id")
-    private Vehicle vehicleId;
+    @Column(columnDefinition="tinyint(1) default 0")
+    private boolean wheel4wd;
 
-    private String wheel4wd;
+    @Lob
     private String options;
     private double rate_per_km;
     private double rate_per_day;
@@ -29,17 +26,10 @@ public class Car {
         this.id = id;
     }
 
-//    public Vehicle getVehicle_id() {
-//        return vehicle_id;
-//    }
-//    public void setVehicle_id(Vehicle vehicle_id) {
-//        this.vehicle_id = vehicle_id;
-//    }
-
-    public String getWheel4wd() {
+    public boolean getWheel4wd() {
         return wheel4wd;
     }
-    public void setWheel4wd(String wheel4wd) {
+    public void setWheel4wd(boolean wheel4wd) {
         this.wheel4wd = wheel4wd;
     }
 
