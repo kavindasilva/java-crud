@@ -1,4 +1,4 @@
-package com.example.vehicle;
+package com.example.user;
 
 import com.example.rentsystem.VehicleOwner;
 import org.springframework.data.repository.CrudRepository;

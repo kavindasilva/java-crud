@@ -9,14 +9,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class AppUserController {
     @Autowired
     private AppUserRepository userRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(AppUserRepository applicationUserRepository,
-                          BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public AppUserController(AppUserRepository applicationUserRepository,
+                             BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = applicationUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

@@ -2,7 +2,7 @@ package com.example.security;
 
 import com.auth0.jwt.JWT;
 import com.example.user.AppUser;
-import com.example.user.UserDetailsServiceImpl;
+import com.example.user.AppUserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,11 +24,11 @@ import static com.example.security.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
-    protected UserDetailsServiceImpl userDetailsService;
+    protected AppUserDetailsServiceImpl userDetailsService;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, ApplicationContext ctx) {
         this.authenticationManager = authenticationManager;
-        this.userDetailsService= ctx.getBean(UserDetailsServiceImpl.class);
+        this.userDetailsService= ctx.getBean(AppUserDetailsServiceImpl.class);
     }
 
     @Override

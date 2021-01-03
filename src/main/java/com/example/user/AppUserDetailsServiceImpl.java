@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import static java.util.Collections.emptyList;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class AppUserDetailsServiceImpl implements UserDetailsService {
     private AppUserRepository applicationUserRepository;
 
-    public UserDetailsServiceImpl(AppUserRepository applicationUserRepository) {
+    public AppUserDetailsServiceImpl(AppUserRepository applicationUserRepository) {
         this.applicationUserRepository = applicationUserRepository;
     }
 
