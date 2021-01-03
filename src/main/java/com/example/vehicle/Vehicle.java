@@ -16,7 +16,7 @@ public class Vehicle {
     private String color;
     private String make;
     private String model;
-    private String transmission;
+    private String transmission; // @TODO: add public static integer constants
     private boolean available;
     private boolean deleted;
 

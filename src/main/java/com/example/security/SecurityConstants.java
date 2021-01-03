@@ -17,6 +17,10 @@ public class SecurityConstants {
     public static final String[] PUBLIC_URLS = new String[]{
             SIGN_UP_URL,
             "/vehicle",
-            "vehicle/{id}",
+            "/vehicle/{id}",
+            "/vehicle/car/",
+            "/vehicle/car/{id}",
+            "/vehicle/lorry",
+            "/vehicle/lorry/{id}"
     };
 }
