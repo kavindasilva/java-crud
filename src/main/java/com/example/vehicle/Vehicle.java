@@ -3,6 +3,7 @@ package com.example.vehicle;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "vehicle")
 public class Vehicle {
     @Id
@@ -18,10 +19,6 @@ public class Vehicle {
     private String transmission;
     private boolean available;
     private boolean deleted;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_type", nullable = true)
-//    private UserType user_type;
 
 
     public Integer getId() {
