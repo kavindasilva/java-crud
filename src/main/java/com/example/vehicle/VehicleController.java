@@ -2,7 +2,7 @@ package com.example.vehicle;
 
 import com.example.user.VehicleOwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -23,18 +23,30 @@ public class VehicleController {
 
     @GetMapping(path="")
     public @ResponseBody Iterable<VehicleBasicData> getAllVehicles() {
-        return vehicleService.findVehiclesBasicData();
+        return vehicleService.findAllVehiclesBasicData();
     }
 
     @PostMapping(path = "/lorry")
-    public @ResponseBody Vehicle addNewLorry(@RequestBody Lorry newlorry){
-        return vehicleService.addLorry(newlorry);
+    public @ResponseBody Vehicle addNewLorry(@RequestBody Lorry newLorry){
+        return vehicleService.addLorry(newLorry);
     }
 
-    @GetMapping(path="/{id}") // GET vechicle/:id
-    public @ResponseBody Optional<Vehicle> getVehicleById(@PathVariable int id ) {
-        return vehicleRepository.findById(id);
+    @GetMapping(path="/lorry")
+    public @ResponseBody Iterable<Lorry> getAllLorries() {
+        return vehicleService.getAllLorries();
     }
+
+    // @TODO: Throw 404 when not found
+    @GetMapping(path="/lorry/{id}")
+    public @ResponseBody Optional<Lorry> getLorryById(@PathVariable int id ) throws ChangeSetPersister.NotFoundException {
+        return vehicleService.findLorryById(id);
+//        return vehicleService.findLorryById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
+    }
+
+//    @GetMapping(path="/{id}") // GET vechicle/:id
+//    public @ResponseBody Vehicle getVehicleById(@PathVariable int id ) throws ChangeSetPersister.NotFoundException {
+//        return vehicleRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
+//    }
     @GetMapping(path="/car1") //
     public @ResponseBody String getVehicleById() {
         return "vehicleRepository.findById(id)";
