@@ -12,4 +12,11 @@ public class SecurityConstants {
     public static final String JWT_ATTR_EMAIL = "email";
     public static final String JWT_ATTR_USERTYPE = "UserType";
     public static final String JWT_ATTR_ = "Authorization";
+
+    // public urls
+    public static final String[] PUBLIC_URLS = new String[]{
+            SIGN_UP_URL,
+            "/vehicle",
+            "vehicle/{id}",
+    };
 }

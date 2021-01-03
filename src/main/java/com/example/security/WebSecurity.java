@@ -17,7 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
 
-import static com.example.security.SecurityConstants.SIGN_UP_URL;
+import static com.example.security.SecurityConstants.PUBLIC_URLS;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +38,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(PUBLIC_URLS).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTAuthenticationFilter(authenticationManager(), getApplicationContext()), UsernamePasswordAuthenticationFilter.class)
