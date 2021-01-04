@@ -74,10 +74,12 @@ public class VehicleService implements CarService {
         return carRepo.findAll();
     }
 
+
     public Lorry findLorryById(int id) throws  RuntimeException{
         return lorryRepo.findById(id).orElseThrow( RuntimeException::new );
-//        return lorryRepo.findById(id).orElseThrow(() -> new EntityNotFoundException( String.valueOf(id) ));
     }
-    // @TODO: do same for car
+    public Car findCarById(int id) throws  RuntimeException{
+        return carRepo.findById(id).orElseThrow( RuntimeException::new );
+    }
 
 }

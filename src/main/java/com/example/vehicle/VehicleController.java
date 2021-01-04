@@ -30,35 +30,46 @@ public class VehicleController {
         return vehicleService.findAllVehiclesBasicData();
     }
 
+
     @PostMapping(path = "/lorry")
     public @ResponseBody Vehicle addNewLorry(@RequestBody Lorry newLorry){
         return vehicleService.addLorry(newLorry);
     }
+
+    @PostMapping(path = "/car")
+    public @ResponseBody Vehicle addNewCar(@RequestBody Car newCar){
+        return vehicleService.addCar(newCar);
+    }
+
 
     @GetMapping(path="/lorry")
     public @ResponseBody Iterable<Lorry> getAllLorries() {
         return vehicleService.getAllLorries();
     }
 
-    // @TODO: Throw 404 when not found
-    @GetMapping(path="/lorry/{id}")
-    public @ResponseBody Lorry getLorryById(@PathVariable int id ) throws ChangeSetPersister.NotFoundException, ResponseStatusException {
-//        return vehicleService.findLorryById(id);
-//            Optional<Lorry> res = vehicleService.findLorryById(id);
-//            if(res.isPresent())
-//                return res.toString();
-//            else
-//                throw new ArithmeticException("");
+    @GetMapping(path="/car")
+    public @ResponseBody Iterable<Car> getAllCars() {
+        return vehicleService.getAllCars();
+    }
 
-//        return vehicleService.findLorryById(id).orElseThrow( ResponseStatusException(NOT_FOUND, "Unable to find resource"));
+
+    @GetMapping(path="/lorry/{id}")
+    public @ResponseBody Lorry getLorryById(@PathVariable int id ) throws ResponseStatusException {
         try {
             return vehicleService.findLorryById(id);
-//            return "success";
         }
         catch (Exception e){
-//            throw new ArithmeticException("ss");
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, "id: "+id+"\n"+e.getMessage() );
+        }
+    }
+
+    @GetMapping(path="/car/{id}")
+    public @ResponseBody Car getCarById(@PathVariable int id ) throws ResponseStatusException {
+        try {
+            return vehicleService.findCarById(id);
+        }
+        catch (Exception e){
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, "id: "+id+"\n"+e.getMessage() );
         }
     }
 
@@ -77,20 +88,20 @@ public class VehicleController {
         return new VehicleResponse( vehicleRepository.findById(id), purpose.orElse(1) );
     }
 
-    @GetMapping(path="/cars") // GET /users
-    public @ResponseBody Iterable<Car> getAllCars() {
-//        return carRepository.findAll();
-        Iterable<Car> allCars = carRepository.findAll();
-//        allCars.forEach( car ->  );
-        for (Car c: allCars) {
-            c.setId(20);
-        }
-        return  allCars;
-    }
+//    @GetMapping(path="/cars") // GET /users
+//    public @ResponseBody Iterable<Car> getAllCars() {
+////        return carRepository.findAll();
+//        Iterable<Car> allCars = carRepository.findAll();
+////        allCars.forEach( car ->  );
+//        for (Car c: allCars) {
+//            c.setId(20);
+//        }
+//        return  allCars;
+//    }
 
-    @GetMapping(path="/car/{id}") // GET user/:id
-    public @ResponseBody Optional<Car> getCarById(@PathVariable int id ) {
-        return carRepository.findById(id);
-    }
+//    @GetMapping(path="/car/{id}") // GET user/:id
+//    public @ResponseBody Optional<Car> getCarById(@PathVariable int id ) {
+//        return carRepository.findById(id);
+//    }
 
 }
