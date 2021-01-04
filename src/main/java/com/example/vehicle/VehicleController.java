@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import com.example.common.SystemConstatnts;
 
 @RestController
 @RequestMapping("/vehicle")
@@ -54,22 +56,24 @@ public class VehicleController {
 
 
     @GetMapping(path="/lorry/{id}")
-    public @ResponseBody Lorry getLorryById(@PathVariable int id ) throws ResponseStatusException {
+    public @ResponseBody Lorry getLorryById(@PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
         try {
             return vehicleService.findLorryById(id);
         }
         catch (Exception e){
-            throw new ResponseStatusException( HttpStatus.NOT_FOUND, "id: "+id+"\n"+e.getMessage() );
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
         }
     }
 
     @GetMapping(path="/car/{id}")
-    public @ResponseBody Car getCarById(@PathVariable int id ) throws ResponseStatusException {
+    public @ResponseBody Car getCarById(@PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
         try {
             return vehicleService.findCarById(id);
         }
         catch (Exception e){
-            throw new ResponseStatusException( HttpStatus.NOT_FOUND, "id: "+id+"\n"+e.getMessage() );
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
         }
     }
 
