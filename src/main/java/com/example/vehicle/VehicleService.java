@@ -3,9 +3,6 @@ package com.example.vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
-
 interface CarService{
 //    public void addCar(Car car);
 //    public void updateCar(Car car);
@@ -36,39 +33,51 @@ public class VehicleService implements CarService {
         return vehicleRepo.findAllVehicleBasicData();
     }
 
-    public Vehicle addLorry(Lorry newLorry){
-        vehicleRepo.save(newLorry);
-        return newLorry;
-    }
 
     public Vehicle addCar(Car newCar){
         vehicleRepo.save(newCar);
         return newCar;
     }
 
-    public Vehicle editCar(Car newCar){
-        vehicleRepo.save(newCar);
-        return newCar;
+    public Vehicle addLorry(Lorry newLorry){
+        vehicleRepo.save(newLorry);
+        return newLorry;
     }
 
-    // @TODO: do same for lorry
+
+    public Car editCar(Car car){
+        vehicleRepo.save(car);
+        return car;
+    }
+
+    public Lorry editLorry(Lorry lorry){
+        vehicleRepo.save(lorry);
+        return lorry;
+    }
+
+
+    // @TODO: do soft delete
+//    public Vehicle deleteLorry(int id){
+//        vehicleRepo.save(newCar);
+//        return vehicleRepo.findById(id).orElseThrow(Exception("ss"));
+//    }
 //    public Vehicle deleteCar(int id){
-////        vehicleRepo.save(newCar);
+//        vehicleRepo.save(newCar);
 //        return vehicleRepo.findById(id).orElseThrow(Exception("ss"));
 //    }
 
     public Iterable<Lorry> getAllLorries(){
         return lorryRepo.findAll();
     }
-    // @TODO: do same for car
 
-    public Optional<Lorry> findLorryById(int id){
-        return lorryRepo.findById(id);
+    public Iterable<Car> getAllCars(){
+        return carRepo.findAll();
+    }
+
+    public Lorry findLorryById(int id) throws  RuntimeException{
+        return lorryRepo.findById(id).orElseThrow( RuntimeException::new );
 //        return lorryRepo.findById(id).orElseThrow(() -> new EntityNotFoundException( String.valueOf(id) ));
     }
     // @TODO: do same for car
 
-//    public Iterable<Lorr> findVehiclesBasicData(){
-//        return vehicleRepo.findAllVehicleBasicData();
-//    }
 }
