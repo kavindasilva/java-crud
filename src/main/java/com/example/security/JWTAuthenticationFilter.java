@@ -21,6 +21,7 @@ import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import static com.example.security.SecurityConstants.*;
+import com.example.common.SystemConstatnts;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
@@ -54,7 +55,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         response.setStatus(401);
-        response.addHeader("Reason-Failed", failed.getMessage());
+        response.addHeader(SystemConstatnts.RESPONSE_HEADERS.get("FAILED_REASON"), failed.getMessage());
         // super.unsuccessfulAuthentication(request, response, failed);
     }
 
