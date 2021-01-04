@@ -77,6 +77,21 @@ public class VehicleController {
         }
     }
 
+
+    // @TODO: add same method for lorry
+    @PutMapping(path="/car/{id}")
+    public @ResponseBody Vehicle updateCar(@RequestBody Vehicle car, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+        try {
+            return vehicleService.editCar(id, car);
+        }
+        catch (Exception e){
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
+        }
+    }
+
+
+
 //    @GetMapping(path="/{id}") // GET vechicle/:id
 //    public @ResponseBody Vehicle getVehicleById(@PathVariable int id ) throws ChangeSetPersister.NotFoundException {
 //        return vehicleRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);

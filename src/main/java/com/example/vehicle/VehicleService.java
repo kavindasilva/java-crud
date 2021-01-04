@@ -45,9 +45,24 @@ public class VehicleService implements CarService {
     }
 
 
-    public Car editCar(Car car){
-        vehicleRepo.save(car);
-        return car;
+    public Vehicle editCar(int id, Vehicle car) throws  RuntimeException{
+//        vehicleRepo.save(car);
+        try{
+            Vehicle eCar = this.findCarById(id);
+            eCar.setAvailable(car.isAvailable());
+            eCar.setColor(car.getColor());
+            eCar.setDeleted(car.isDeleted());
+            eCar.setLicense_expiry_date(car.getLicense_expiry_date());
+            eCar.setMake(car.getMake());
+            eCar.setModel(car.getModel());
+            eCar.setTransmission(car.getTransmission());
+            vehicleRepo.save(eCar);
+            return eCar;
+        }
+        catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+//        return car;
     }
 
     public Lorry editLorry(Lorry lorry){
