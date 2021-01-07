@@ -34,38 +34,27 @@ public class VehicleController {
     }
 
 
-    @PostMapping(path = "/lorry")
-    public @ResponseBody Vehicle addNewLorry(@RequestBody Lorry newLorry){
-        return vehicleService.addLorry(newLorry);
-    }
-
     @PostMapping(path = "/car")
     public @ResponseBody Vehicle addNewCar(@RequestBody Car newCar){
         return vehicleService.addCar(newCar);
     }
 
-
-    @GetMapping(path="/lorry")
-    public @ResponseBody Iterable<Lorry> getAllLorries() {
-        return vehicleService.getAllLorries();
+    @PostMapping(path = "/lorry")
+    public @ResponseBody Vehicle addNewLorry(@RequestBody Lorry newLorry){
+        return vehicleService.addLorry(newLorry);
     }
+
 
     @GetMapping(path="/car")
     public @ResponseBody Iterable<Car> getAllCars() {
         return vehicleService.getAllCars();
     }
 
-
-    @GetMapping(path="/lorry/{id}")
-    public @ResponseBody Lorry getLorryById(@PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
-        try {
-            return vehicleService.findLorryById(id);
-        }
-        catch (Exception e){
-            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
-            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
-        }
+    @GetMapping(path="/lorry")
+    public @ResponseBody Iterable<Lorry> getAllLorries() {
+        return vehicleService.getAllLorries();
     }
+
 
     @GetMapping(path="/car/{id}")
     public @ResponseBody Car getCarById(@PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
@@ -78,10 +67,20 @@ public class VehicleController {
         }
     }
 
+    @GetMapping(path="/lorry/{id}")
+    public @ResponseBody Lorry getLorryById(@PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+        try {
+            return vehicleService.findLorryById(id);
+        }
+        catch (Exception e){
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
+        }
+    }
 
-    // @TODO: add same method for lorry
+
     @PutMapping(path="/car/{id}")
-    public @ResponseBody Vehicle updateCar(@RequestBody Vehicle car, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+    public @ResponseBody Vehicle updateCar(@RequestBody Car car, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
         try {
             return vehicleService.editCar(id, car);
         }
@@ -90,6 +89,18 @@ public class VehicleController {
             throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
         }
     }
+
+    @PutMapping(path="/lorry/{id}")
+    public @ResponseBody Vehicle updateLorry(@RequestBody Lorry lorry, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+        try {
+            return vehicleService.editLorry(id, lorry);
+        }
+        catch (Exception e){
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
+        }
+    }
+    
 
     @PatchMapping(path="/car/{id}")
     public @ResponseBody Vehicle patchCar(@RequestBody Map<String, String> fields, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {

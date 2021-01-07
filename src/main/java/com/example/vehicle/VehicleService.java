@@ -49,39 +49,32 @@ public class VehicleService implements CarService {
     }
 
 
-    public Vehicle editCar(int id, Vehicle car) throws  RuntimeException{
-//        vehicleRepo.save(car);
+    // @TODO: add API test
+    public Vehicle editCar(int id, Car car) throws  RuntimeException{
         try{
-            Vehicle eCar = this.findCarById(id);
+            Car eCar = this.findCarById(id); // just to validate the car
             car.setId(id); // don't let update PK
-//
-//            car.forEach((k, v) -> {
-//                System.out.println("k,v: " + k + v);
-//                Field field = ReflectionUtils.findField(Car.class, k); // find field in the object class
-//                field.setAccessible(true);
-//                ReflectionUtils.setField(field, eCar, v); // set given field for defined object to value V
-//            });
-//            eCar.setAvailable(car.isAvailable());
-//            eCar.setColor(car.getColor());
-//            eCar.setDeleted(car.isDeleted());
-//            eCar.setLicense_expiry_date(car.getLicense_expiry_date());
-//            eCar.setMake(car.getMake());
-//            eCar.setModel(car.getModel());
-//            eCar.setTransmission(car.getTransmission());
-            vehicleRepo.save(car);
-            return eCar;
+            carRepo.save(car);
+            return car;
         }
         catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }
-//        return car;
     }
 
-    // @TODO: same as car
-    public Lorry editLorry(Lorry lorry){
-        vehicleRepo.save(lorry);
-        return lorry;
+    // @TODO: add API test
+    public Lorry editLorry(int id, Lorry lorry)throws  RuntimeException{
+        try{
+            Lorry eLorry = this.findLorryById(id); // just to validate the lorry
+            lorry.setId(id); // don't let update PK
+            lorryRepo.save(lorry);
+            return lorry;
+        }
+        catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
     }
+
 
     public Vehicle patchCar(int id, Map<String, String> fields) throws  RuntimeException{
         try{
@@ -105,6 +98,7 @@ public class VehicleService implements CarService {
     }
 
     // @TODO: refactor to Lorry
+    // @TODO: find a way to add double values
     public Vehicle patchLorry(int id, Map<String, String> fields) throws  RuntimeException{
         try{
             Car eCar = this.findCarById(id);
