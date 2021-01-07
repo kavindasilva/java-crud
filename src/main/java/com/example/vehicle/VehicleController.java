@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -83,6 +84,17 @@ public class VehicleController {
     public @ResponseBody Vehicle updateCar(@RequestBody Vehicle car, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
         try {
             return vehicleService.editCar(id, car);
+        }
+        catch (Exception e){
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
+        }
+    }
+
+    @PatchMapping(path="/car/{id}")
+    public @ResponseBody Vehicle patchCar(@RequestBody Map<String, String> fields, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+        try {
+            return vehicleService.patchCar(id, fields);
         }
         catch (Exception e){
             response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));

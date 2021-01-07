@@ -2,6 +2,10 @@ package com.example.vehicle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 interface CarService{
 //    public void addCar(Car car);
@@ -49,14 +53,22 @@ public class VehicleService implements CarService {
 //        vehicleRepo.save(car);
         try{
             Vehicle eCar = this.findCarById(id);
-            eCar.setAvailable(car.isAvailable());
-            eCar.setColor(car.getColor());
-            eCar.setDeleted(car.isDeleted());
-            eCar.setLicense_expiry_date(car.getLicense_expiry_date());
-            eCar.setMake(car.getMake());
-            eCar.setModel(car.getModel());
-            eCar.setTransmission(car.getTransmission());
-            vehicleRepo.save(eCar);
+            car.setId(id); // don't let update PK
+//
+//            car.forEach((k, v) -> {
+//                System.out.println("k,v: " + k + v);
+//                Field field = ReflectionUtils.findField(Car.class, k); // find field in the object class
+//                field.setAccessible(true);
+//                ReflectionUtils.setField(field, eCar, v); // set given field for defined object to value V
+//            });
+//            eCar.setAvailable(car.isAvailable());
+//            eCar.setColor(car.getColor());
+//            eCar.setDeleted(car.isDeleted());
+//            eCar.setLicense_expiry_date(car.getLicense_expiry_date());
+//            eCar.setMake(car.getMake());
+//            eCar.setModel(car.getModel());
+//            eCar.setTransmission(car.getTransmission());
+            vehicleRepo.save(car);
             return eCar;
         }
         catch (Exception e){
@@ -65,9 +77,53 @@ public class VehicleService implements CarService {
 //        return car;
     }
 
+    // @TODO: same as car
     public Lorry editLorry(Lorry lorry){
         vehicleRepo.save(lorry);
         return lorry;
+    }
+
+    public Vehicle patchCar(int id, Map<String, String> fields) throws  RuntimeException{
+        try{
+            Car eCar = this.findCarById(id);
+            System.out.println("ID " + fields.get("id"));
+            fields.remove("id"); // don't let update PK
+
+            fields.forEach((k, v) -> {
+                System.out.println("k,v: " + k + v);
+                Field field = ReflectionUtils.findField(Car.class, k); // find field in the object class
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, eCar, v); // set given field for defined object to value V
+            });
+
+            carRepo.save(eCar);
+            return eCar;
+        }
+        catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    // @TODO: refactor to Lorry
+    public Vehicle patchLorry(int id, Map<String, String> fields) throws  RuntimeException{
+        try{
+            Car eCar = this.findCarById(id);
+            System.out.println("ID " + fields.get("id"));
+            fields.remove("id"); // don't let update PK
+
+            fields.forEach((k, v) -> {
+                System.out.println("k,v: " + k + v);
+                Field field = ReflectionUtils.findField(Car.class, k); // find field in the object class
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, eCar, v); // set given field for defined object to value V
+            });
+
+            carRepo.save(eCar);
+            return eCar;
+        }
+        catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
 
@@ -90,11 +146,12 @@ public class VehicleService implements CarService {
     }
 
 
-    public Lorry findLorryById(int id) throws  RuntimeException{
-        return lorryRepo.findById(id).orElseThrow( RuntimeException::new );
-    }
     public Car findCarById(int id) throws  RuntimeException{
         return carRepo.findById(id).orElseThrow( RuntimeException::new );
+    }
+
+    public Lorry findLorryById(int id) throws  RuntimeException{
+        return lorryRepo.findById(id).orElseThrow( RuntimeException::new );
     }
 
 }
