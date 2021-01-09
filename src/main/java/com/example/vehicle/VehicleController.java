@@ -100,7 +100,7 @@ public class VehicleController {
             throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
         }
     }
-    
+
 
     @PatchMapping(path="/car/{id}")
     public @ResponseBody Vehicle patchCar(@RequestBody Map<String, String> fields, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
@@ -113,6 +113,39 @@ public class VehicleController {
         }
     }
 
+    @PatchMapping(path="/lorry/{id}")
+    public @ResponseBody Vehicle patchLorry(@RequestBody Map<String, String> fields, @PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+        try {
+            return vehicleService.patchLorry(id, fields);
+        }
+        catch (Exception e){
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
+        }
+    }
+
+
+    @DeleteMapping(path="/car/{id}")
+    public @ResponseBody boolean deleteCar(@PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+        try {
+            return vehicleService.deleteCar(id);
+        }
+        catch (Exception e) {
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @DeleteMapping(path="/lorry/{id}")
+    public @ResponseBody boolean deleteLorry(@PathVariable int id, HttpServletResponse response) throws ResponseStatusException {
+        try {
+            return vehicleService.deleteLorry(id);
+        }
+        catch (Exception e) {
+            response.setHeader(SystemConstatnts.RESPONSE_HEADERS.get("REQUESTED_ID"), String.valueOf(id));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 
 
 //    @GetMapping(path="/{id}") // GET vechicle/:id

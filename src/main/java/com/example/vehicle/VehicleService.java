@@ -107,8 +107,9 @@ public class VehicleService implements CarService {
 
             fields.forEach((k, v) -> {
                 System.out.println("k,v: " + k + v);
-                Field field = ReflectionUtils.findField(Car.class, k); // find field in the object class
+                Field field = ReflectionUtils.findField(Car.class, k.toString()); // find field in the object class
                 field.setAccessible(true);
+//                field.get
                 ReflectionUtils.setField(field, eCar, v); // set given field for defined object to value V
             });
 
@@ -122,14 +123,27 @@ public class VehicleService implements CarService {
 
 
     // @TODO: do soft delete
-//    public Vehicle deleteLorry(int id){
-//        vehicleRepo.save(newCar);
-//        return vehicleRepo.findById(id).orElseThrow(Exception("ss"));
-//    }
-//    public Vehicle deleteCar(int id){
-//        vehicleRepo.save(newCar);
-//        return vehicleRepo.findById(id).orElseThrow(Exception("ss"));
-//    }
+    public boolean deleteCar(int id){
+        try{
+//            Car eCar = this.findCarById(id); // just to validate the car
+            carRepo.deleteById(id);
+            return true;
+        }
+        catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public boolean deleteLorry(int id){
+        try{
+            lorryRepo.deleteById(id);
+            return true;
+        }
+        catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
 
     public Iterable<Lorry> getAllLorries(){
         return lorryRepo.findAll();
