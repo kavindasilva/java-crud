@@ -11,11 +11,11 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class AppUserController {
     @Autowired
-    private AppUserRepository userRepository;
+    private AppUserDAO userRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public AppUserController(AppUserRepository applicationUserRepository,
+    public AppUserController(AppUserDAO applicationUserRepository,
                              BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = applicationUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;

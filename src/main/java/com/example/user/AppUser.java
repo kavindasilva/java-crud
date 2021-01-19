@@ -4,6 +4,8 @@ package com.example.user;
  * Reference: https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
  */
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.*;
 
 @Entity
+@Repository
 @Table(name = "users")
 public class AppUser {
     @Id

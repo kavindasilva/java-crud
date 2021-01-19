@@ -10,10 +10,10 @@ import static java.util.Collections.emptyList;
 
 @Service
 public class AppUserDetailsServiceImpl implements UserDetailsService {
-    private AppUserRepository applicationUserRepository;
+    private AppUserDAO appUserDAO;
 
-    public AppUserDetailsServiceImpl(AppUserRepository applicationUserRepository) {
-        this.applicationUserRepository = applicationUserRepository;
+    public AppUserDetailsServiceImpl(AppUserDAO applicationUserRepository) {
+        this.appUserDAO = applicationUserRepository;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
     }
 
     public AppUser loadUserData(String username) throws UsernameNotFoundException {
-        AppUser applicationUser = applicationUserRepository.findByName(username);
+        AppUser applicationUser = appUserDAO.findByName(username);
         if (applicationUser == null) {
             throw new UsernameNotFoundException(username);
         }
