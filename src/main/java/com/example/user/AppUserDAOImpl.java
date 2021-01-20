@@ -1,7 +1,9 @@
 package com.example.user;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,47 +19,44 @@ public class AppUserDAOImpl implements AppUserDAO{
         @Autowired
         private SessionFactory sessionFactory;
 
-//        @Autowired
-//        public void setSessionFactory(SessionFactory sf){
-//                this.sessionFactory = sf;
-//        }
-
-        public void save(AppUser p){
+        public void save(AppUser newUser){
                 Session session = this.sessionFactory.getCurrentSession();
-//                session.persist(p);
-                System.out.println("AppUser save");
+                session.save(newUser);
         }
 
-        public void updatePerson(AppUser p){
+        public void updateUser(AppUser p){
                 System.out.println("AppUser update");
         }
 
         public List<AppUser> findAll(){
-                System.out.println("AppUser findall");
                 CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
                 CriteriaQuery<AppUser> criteria = builder.createQuery(AppUser.class);
                 criteria.from(AppUser.class);
                return this.sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
-//                return this.sessionFactory.getCurrentSession().load(AppUser.class, 14);
-//                return new ArrayList<AppUser>();
         }
 
-        public AppUser getPersonById(int id){
+        public AppUser getUserById(int id){
                 System.out.println("AppUser getpersonbyid");
                 return this.sessionFactory.getCurrentSession().load(AppUser.class, id);
-//                return null;
         }
 
         public AppUser findByName(String name){
                 Session session = this.sessionFactory.getCurrentSession();
+                Criteria criteria = session.createCriteria(AppUser.class);
+                AppUser p = (AppUser) criteria.add(Restrictions.eq("name", name))
+                        .uniqueResult();
+
                 System.out.println("AppUser findbyame");
-                AppUser p = (AppUser)session.load(AppUser.class, 13);
-                System.out.println("AppUser findbyame " + p.getName());
+//                AppUser p = (AppUser)session.byNaturalId(AppUser.class)
+//                        .using("name", name)
+//                        .load();
+//                System.out.println("AppUser findbyame " + p.getName());
 //                return null;
                 return p;
         }
 
-        public void removePerson(int id){
+        // @TODO: implement safe delete
+        public void deleteUser(int id){
                 System.out.println("AppUser remove");
         }
 }
