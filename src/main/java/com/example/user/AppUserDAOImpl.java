@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +34,18 @@ public class AppUserDAOImpl implements AppUserDAO{
 
         public List<AppUser> findAll(){
                 System.out.println("AppUser findall");
-                return new ArrayList<>();
+                CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
+                CriteriaQuery<AppUser> criteria = builder.createQuery(AppUser.class);
+                criteria.from(AppUser.class);
+               return this.sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
+//                return this.sessionFactory.getCurrentSession().load(AppUser.class, 14);
+//                return new ArrayList<AppUser>();
         }
 
         public AppUser getPersonById(int id){
                 System.out.println("AppUser getpersonbyid");
-                return null;
+                return this.sessionFactory.getCurrentSession().load(AppUser.class, id);
+//                return null;
         }
 
         public AppUser findByName(String name){
