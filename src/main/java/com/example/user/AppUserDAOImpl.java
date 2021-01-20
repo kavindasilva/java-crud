@@ -2,18 +2,23 @@ package com.example.user;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Transactional
 public class AppUserDAOImpl implements AppUserDAO{
+        @Autowired
         private SessionFactory sessionFactory;
 
-        public void setSessionFactory(SessionFactory sf){
-                this.sessionFactory = sf;
-        }
+//        @Autowired
+//        public void setSessionFactory(SessionFactory sf){
+//                this.sessionFactory = sf;
+//        }
 
         public void save(AppUser p){
                 Session session = this.sessionFactory.getCurrentSession();
@@ -36,8 +41,12 @@ public class AppUserDAOImpl implements AppUserDAO{
         }
 
         public AppUser findByName(String name){
+                Session session = this.sessionFactory.getCurrentSession();
                 System.out.println("AppUser findbyame");
-                return null;
+                AppUser p = (AppUser)session.load(AppUser.class, 13);
+                System.out.println("AppUser findbyame " + p.getName());
+//                return null;
+                return p;
         }
 
         public void removePerson(int id){
