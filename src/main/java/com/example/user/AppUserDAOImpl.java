@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,17 +45,17 @@ public class AppUserDAOImpl implements AppUserDAO{
 
         public AppUser findByName(String name){
                 Session session = this.sessionFactory.getCurrentSession();
-                Criteria criteria = session.createCriteria(AppUser.class);
-                AppUser p = (AppUser) criteria.add(Restrictions.eq("name", name))
-                        .uniqueResult();
-
-                System.out.println("AppUser findbyame");
-//                AppUser p = (AppUser)session.byNaturalId(AppUser.class)
-//                        .using("name", name)
-//                        .load();
-//                System.out.println("AppUser findbyame " + p.getName());
-//                return null;
-                return p;
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<AppUser> criteria = builder.createQuery(AppUser.class);
+                Root<AppUser> userRoot = criteria.from(AppUser.class);
+                criteria
+                        .select(userRoot)
+                        .where(builder.equal(userRoot.get("name"), name ));
+                try {
+                        return session.createQuery(criteria).getSingleResult();
+                }catch (NoResultException e){
+                        return null;
+                }
         }
 
         // @TODO: implement safe delete
