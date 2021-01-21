@@ -1,8 +1,8 @@
 package com.example.vehicle;
 
-import com.example.user.VechicleOwnerDAOImpl;
+import com.example.user.VehicleOwnerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,11 +18,12 @@ import com.example.common.SystemConstatnts;
 @RequestMapping("/vehicle")
 public class VehicleController {
     @Autowired
-    private VehicleRepository vehicleRepository;
+    @Qualifier("VehicleDAOImpl")
+    private VehicleDAO vehicleRepository;
     @Autowired
-    private CarRepository carRepository;
+    private CarDAO carRepository;
     @Autowired
-    private VechicleOwnerDAOImpl ownerRepository;
+    private VehicleOwnerDAO ownerRepository;
 
     @Autowired
     private VehicleService vehicleService;
@@ -157,11 +158,11 @@ public class VehicleController {
         return "vehicleRepository.findById(id)";
     }
 
-    @GetMapping(path="/car2/{id}") //
-    public @ResponseBody
-    VehicleResponse getVehicleById2(@PathVariable int id, @RequestParam("for") Optional<Integer> purpose) {
-        return new VehicleResponse( vehicleRepository.findById(id), purpose.orElse(1) );
-    }
+//    @GetMapping(path="/car2/{id}") //
+//    public @ResponseBody
+//    VehicleResponse getVehicleById2(@PathVariable int id, @RequestParam("for") Optional<Integer> purpose) {
+//        return new VehicleResponse( vehicleRepository.findById(id), purpose.orElse(1) );
+//    }
 
 //    @GetMapping(path="/cars") // GET /users
 //    public @ResponseBody Iterable<Car> getAllCars() {

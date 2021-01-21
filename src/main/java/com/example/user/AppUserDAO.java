@@ -16,12 +16,3 @@ public interface AppUserDAO {
         public void deleteUser(int id);
 }
 
-@Repository
-interface VehicleOwnerDAO {
-        public VehicleOwner findById(int id);
-        public void save(VehicleOwner p);
-        public void updateUser(VehicleOwner p);
-        public List<VehicleOwner> findAll();
-        public VehicleOwner findByName(String name);
-        public void deleteUser(int id);
-}

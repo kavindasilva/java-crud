@@ -1,6 +1,7 @@
 package com.example.rentsystem;
 
-import com.example.user.VechicleOwnerDAOImpl;
+import com.example.user.AppUserDAO;
+import com.example.user.VehicleOwnerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +11,9 @@ import java.util.Optional;
 @Controller // This means that this class is a Controller
 public class UsersController {
     @Autowired
-    private usersDAOImpl userRepository;
+    private UsersDAO userRepository;
     @Autowired
-    private VechicleOwnerDAOImpl ownerRepository;
+    private VehicleOwnerDAO ownerRepository;
 
 
     @GetMapping(path="/ousers") // GET /users

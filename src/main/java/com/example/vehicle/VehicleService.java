@@ -1,6 +1,7 @@
 package com.example.vehicle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -22,15 +23,17 @@ interface LorryService{
 }
 
 @Service
+//@Qualifier("VehicleDAOImpl")
 public class VehicleService implements CarService {
     @Autowired
-    private VehicleRepository vehicleRepo;
+    @Qualifier("VehicleDAOImpl")
+    private VehicleDAO vehicleRepo;
 
     @Autowired
-    private LorryRepository lorryRepo;
+    private LorryDAO lorryRepo;
 
     @Autowired
-    private CarRepository carRepo;
+    private CarDAO carRepo;
 
 
     public Iterable<VehicleBasicData> findAllVehiclesBasicData(){
@@ -39,12 +42,12 @@ public class VehicleService implements CarService {
 
 
     public Vehicle addCar(Car newCar){
-        vehicleRepo.save(newCar);
+//        vehicleRepo.save(newCar);
         return newCar;
     }
 
     public Vehicle addLorry(Lorry newLorry){
-        vehicleRepo.save(newLorry);
+//        vehicleRepo.save(newLorry);
         return newLorry;
     }
 

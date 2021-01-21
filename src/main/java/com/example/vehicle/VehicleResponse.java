@@ -1,7 +1,7 @@
 package com.example.vehicle;
 
 import com.example.vehicle.Vehicle;
-import com.example.vehicle.VehicleRepository;
+//import com.example.vehicle.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
@@ -27,7 +27,7 @@ public class VehicleResponse {
 
 //    private CarRepository carRepository;
     @Autowired
-    private VehicleRepository vr;
+    private VehicleDAOImpl vr;
     // lorry repo also
 
     public VehicleResponse(Optional<Vehicle> vehicle, int purpose) {
