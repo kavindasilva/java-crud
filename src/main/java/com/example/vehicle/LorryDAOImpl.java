@@ -18,13 +18,12 @@ public class LorryDAOImpl implements LorryDAO{
         @Autowired
         private SessionFactory sessionFactory;
 
-//        @Override
+        @Override
         public void save(Lorry v){
-                Session session = this.sessionFactory.getCurrentSession();
-                session.save(v);
+                this.sessionFactory.getCurrentSession().save(v);
         }
 
-//        @Override
+        @Override
         public List<Lorry> findAll(){
                 CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
                 CriteriaQuery<Lorry> criteria = builder.createQuery(Lorry.class);
@@ -32,20 +31,15 @@ public class LorryDAOImpl implements LorryDAO{
                 return this.sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
         }
 
-//        @Override
+        @Override
         public Optional<Lorry> findById(int id){
                 return Optional.ofNullable( this.sessionFactory.getCurrentSession().load(Lorry.class, id) );
         }
 
-//        @Override
+        @Override
         public void update(Lorry v){
-                Session session = this.sessionFactory.getCurrentSession();
-                Lorry Lorry = session.load(Lorry.class, v.getId());
-                if(Lorry == null){
-                        throw new NoResultException();
-                }
-                session.save(v);
-                System.out.println("Lorry update" + Lorry.getReg_no());
+                this.sessionFactory.getCurrentSession().update(v);
+                System.out.println("Lorry update" + v.getReg_no());
         }
 
         @Override
@@ -57,10 +51,5 @@ public class LorryDAOImpl implements LorryDAO{
                 }
                 // @TODO implement rest of body
                 return;
-        }
-
-        @Override
-        public List<VehicleBasicData> findAllVehicleBasicData() {
-                return null;
         }
 }

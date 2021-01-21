@@ -36,13 +36,13 @@ public class VehicleService implements CarService {
     private CarDAO carRepo;
 
 
-    public Iterable<VehicleBasicData> findAllVehiclesBasicData(){
+    public Iterable<Vehicle> findAllVehiclesBasicData(){
         return vehicleRepo.findAllVehicleBasicData();
     }
 
 
     public Vehicle addCar(Car newCar){
-//        vehicleRepo.save(newCar);
+        vehicleRepo.save(newCar);
         return newCar;
     }
 
@@ -57,7 +57,7 @@ public class VehicleService implements CarService {
         try{
             Car eCar = this.findCarById(id); // just to validate the car
             car.setId(id); // don't let update PK
-            carRepo.save(car);
+            carRepo.update(car);
             return car;
         }
         catch (Exception e){
@@ -70,7 +70,7 @@ public class VehicleService implements CarService {
         try{
             Lorry eLorry = this.findLorryById(id); // just to validate the lorry
             lorry.setId(id); // don't let update PK
-            lorryRepo.save(lorry);
+            lorryRepo.update(lorry);
             return lorry;
         }
         catch (Exception e){
@@ -79,6 +79,7 @@ public class VehicleService implements CarService {
     }
 
 
+    // @TODO: chaeck this with hibernate
     public Vehicle patchCar(int id, Map<String, String> fields) throws  RuntimeException{
         try{
             Car eCar = this.findCarById(id);

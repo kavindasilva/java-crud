@@ -18,13 +18,12 @@ public class CarDAOImpl implements CarDAO{
         @Autowired
         private SessionFactory sessionFactory;
 
-//        @Override
+        @Override
         public void save(Car v){
-                Session session = this.sessionFactory.getCurrentSession();
-                session.save(v);
+                this.sessionFactory.getCurrentSession().save(v);
         }
 
-//        @Override
+        @Override
         public List<Car> findAll(){
                 CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
                 CriteriaQuery<Car> criteria = builder.createQuery(Car.class);
@@ -32,35 +31,20 @@ public class CarDAOImpl implements CarDAO{
                 return this.sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
         }
 
-//        @Override
+        @Override
         public Optional<Car> findById(int id){
-                return Optional.ofNullable( this.sessionFactory.getCurrentSession().load(Car.class, id) );
+                return Optional.ofNullable( this.sessionFactory.getCurrentSession().get(Car.class, id) );
         }
 
-//        @Override
+        @Override
         public void update(Car v){
-                Session session = this.sessionFactory.getCurrentSession();
-                Car Car = session.load(Car.class, v.getId());
-                if(Car == null){
-                        throw new NoResultException();
-                }
-                session.save(v);
-                System.out.println("Car update" + Car.getReg_no());
+                this.sessionFactory.getCurrentSession().update(v);
+                System.out.println("Car update" + v.getReg_no());
         }
 
         @Override
         public void deleteById(int id) {
-                Session session = this.sessionFactory.getCurrentSession();
-                Car Car = session.load(Car.class, id);
-                if(Car == null){
-                        throw new NoResultException();
-                }
                 // @TODO implement rest of body
                 return;
-        }
-
-        @Override
-        public List<VehicleBasicData> findAllVehicleBasicData() {
-                return null;
         }
 }

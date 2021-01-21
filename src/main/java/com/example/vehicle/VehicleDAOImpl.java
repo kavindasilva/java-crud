@@ -23,13 +23,13 @@ public class VehicleDAOImpl implements VehicleDAO{
         @Autowired
         private SessionFactory sessionFactory;
 
-//        @Override
+        @Override
         public void save(Vehicle v){
                 Session session = this.sessionFactory.getCurrentSession();
                 session.save(v);
         }
 
-//        @Override
+        @Override
         public List<Vehicle> findAll(){
                 CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
                 CriteriaQuery<Vehicle> criteria = builder.createQuery(Vehicle.class);
@@ -37,20 +37,15 @@ public class VehicleDAOImpl implements VehicleDAO{
                 return this.sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
         }
 
-//        @Override
+        @Override
         public Optional<Vehicle> findById(int id){
-                return Optional.ofNullable( this.sessionFactory.getCurrentSession().load(Vehicle.class, id) );
+                return Optional.ofNullable( this.sessionFactory.getCurrentSession().get(Vehicle.class, id) );
         }
 
-//        @Override
+        @Override
         public void update(Vehicle v){
-                Session session = this.sessionFactory.getCurrentSession();
-                Vehicle vehicle = session.load(Vehicle.class, v.getId());
-                if(vehicle == null){
-                        throw new NoResultException();
-                }
-                session.save(v);
-                System.out.println("Vehicle update" + vehicle.getReg_no());
+                this.sessionFactory.getCurrentSession().update(v);
+                System.out.println("Vehicle update" + v.getReg_no());
         }
 
         @Override
@@ -65,7 +60,21 @@ public class VehicleDAOImpl implements VehicleDAO{
         }
 
         @Override
-        public List<VehicleBasicData> findAllVehicleBasicData() {
-                return null;
+        // @TODO failing reason
+        public List<Vehicle> findAllVehicleBasicData() {
+                //@Query(value = "SELECT id, reg_no, color, make, model, transmission, available, license_expiry_date FROM Vehicle", nativeQuery = true)
+                //    List<VehicleBasicData> findAllVehicleBasicData();
+                Session session = this.sessionFactory.getCurrentSession();
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Vehicle> criteria = builder.createQuery(Vehicle.class);
+                Root<Vehicle> userRoot = criteria.from(Vehicle.class);
+                criteria
+                        .multiselect(userRoot.get("id"));
+                try {
+//                        List<Vehicle> x = session.createQuery(criteria).getResultList();
+                        return session.createQuery(criteria).getResultList();
+                }catch (NoResultException e){
+                        return null;
+                }
         }
 }
