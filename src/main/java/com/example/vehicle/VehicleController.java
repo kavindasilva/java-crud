@@ -1,8 +1,8 @@
 package com.example.vehicle;
 
-import com.example.user.VehicleOwnerRepository;
+import com.example.user.VechicleOwnerDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+//import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,7 +22,7 @@ public class VehicleController {
     @Autowired
     private CarRepository carRepository;
     @Autowired
-    private VehicleOwnerRepository ownerRepository;
+    private VechicleOwnerDAOImpl ownerRepository;
 
     @Autowired
     private VehicleService vehicleService;

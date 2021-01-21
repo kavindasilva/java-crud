@@ -30,6 +30,3 @@ interface CarRepository extends CrudRepository<Car, Integer> {
 interface LorryRepository extends CrudRepository<Lorry, Integer> {
 }
 
-//interface VehicleOwnerRepository extends CrudRepository<VehicleOwner, Integer> {
-//}
-
