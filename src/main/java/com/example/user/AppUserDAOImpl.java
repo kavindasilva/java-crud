@@ -27,8 +27,15 @@ public class AppUserDAOImpl implements AppUserDAO{
                 session.save(newUser);
         }
 
-        public void updateUser(AppUser p){
-                System.out.println("AppUser update");
+        // not tested, since not used
+        public void updateUser(AppUser userdata){
+                Session session = this.sessionFactory.getCurrentSession();
+                AppUser user = session.load(AppUser.class, userdata.getId());
+                if(user == null){
+                        throw new NoResultException();
+                }
+                session.save(userdata);
+                System.out.println("AppUser update" + user.getName());
         }
 
         public List<AppUser> findAll(){
@@ -39,7 +46,6 @@ public class AppUserDAOImpl implements AppUserDAO{
         }
 
         public AppUser getUserById(int id){
-                System.out.println("AppUser getpersonbyid");
                 return this.sessionFactory.getCurrentSession().load(AppUser.class, id);
         }
 
